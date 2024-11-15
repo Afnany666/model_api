@@ -1,11 +1,18 @@
-FROM python:3.9-slim
+# Gunakan base image Python
+FROM python:3.10-slim
 
-COPY . /app
+# Set work directory
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+# Salin file requirements.txt dan install dependencies
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-ENV PORT 8080
+# Salin semua file ke container
+COPY . .
+
+# Ekspos port untuk Flask
 EXPOSE 8080
 
+# Jalankan aplikasi Flask
 CMD ["python", "app.py"]
